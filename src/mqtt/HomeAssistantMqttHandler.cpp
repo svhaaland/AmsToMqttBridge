@@ -220,7 +220,7 @@ bool HomeAssistantMqttHandler::publishSystem(HwTools* hw) {
                     (haUID + "_" + params[i]).c_str(),  // unique_id
                     (haUID + "_" + params[i]).c_str(),  // object_id
                     uom[i].c_str(),                     // unit_of_measurement
-                    params[i].c_str(),                  // value_template
+                    ("{% if value_json." +params[i] +" is defined%} {{ value_json." + params[i] + " }} {% else %} {{(states.sensor."+(haUID + "_" + params[i])+"|float)}} {% endif %}").c_str(), // value_template
                     devcl[i].c_str(),                   // device_class
                     haUID.c_str(),                      // dev ids
                     haName.c_str(),                     // name
@@ -237,7 +237,7 @@ bool HomeAssistantMqttHandler::publishSystem(HwTools* hw) {
                     (haUID + "_" + params[i]).c_str(),  // unique_id
                     (haUID + "_" + params[i]).c_str(),  // object_id
                     uom[i].c_str(),                     // unit_of_measurement
-                    params[i].c_str(),                  // value_template
+                    ("{% if value_json." +params[i] +" is defined%} {{ value_json." + params[i] + " }} {% else %} {{(states.sensor."+(haUID + "_" + params[i])+"|float)}} {% endif %}").c_str(),                  // value_template
                     devcl[i].c_str(),                   // device_class
                     haUID.c_str(),                      // dev ids
                     haName.c_str(),                     // name
